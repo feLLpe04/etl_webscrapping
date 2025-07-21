@@ -11,13 +11,13 @@ def get_all_books():
     conn.close()
     return df.to_dict(orient="records")
 
-# Endpoint 1: Return all books
+# Endpoint 1 Return all books
 @app.route('/books', methods=['GET'])
 def all_books():
     data = get_all_books()
     return jsonify(data)
 
-# Endpoint 2: Get books by title
+# Endpoint 2 Get books by title
 @app.route('/books/rating/<int:rating>', methods=['GET'])
 def get_books_by_rating(rating):
     conn = sqlite3.connect('books.db')
@@ -37,12 +37,18 @@ def get_books_by_rating(rating):
     
     return jsonify(results)
 
-# Endpoint 3: Get books within a price range (in GBP)
-@app.route('/books/price/<float:min_price>/<float:max_price>', methods=['GET'])
-def get_books_by_price(min_price, max_price):
-    conn = sqlite3.connect('books.db')
+# Endpoint 3: Get books within a price range
+@app.route("/books/price/<min_price>/<max_price>", methods=["GET"])
+def get_books_by_price_range(min_price, max_price):
+    try:
+        min_price = float(min_price)
+        max_price = float(max_price)
+    except ValueError:
+        return jsonify({'message': 'Invalid price format'}), 400
+
+    conn = sqlite3.connect("books.db")
     query = """
-        SELECT title, in_stock, rating, price_gbp, price_usd
+        SELECT title, in_stock, price_gbp, price_usd, rating
         FROM books
         WHERE price_gbp BETWEEN ? AND ?
     """
@@ -54,7 +60,7 @@ def get_books_by_price(min_price, max_price):
 
     return jsonify(df.to_dict(orient="records"))
 
-# Endpoint 4: Get all books that are in stock
+# Endpoint 4 Get all books that are in stock
 @app.route('/books/in-stock', methods=['GET'])
 def get_books_in_stock():
     conn = sqlite3.connect('books.db')
@@ -71,7 +77,7 @@ def get_books_in_stock():
 
     return jsonify(df.to_dict(orient="records"))
 
-# Endpoint 5: Get summary statistics
+# Endpoint 5 Get summary statistics
 @app.route('/summary/stats', methods=['GET'])
 def get_summary_stats():
     conn = sqlite3.connect('books.db')
@@ -92,7 +98,7 @@ def get_summary_stats():
 
     return jsonify(summary)
 
-# Endpoint 6: Search books by keyword in title
+# Endpoint 6 Search books by keyword in title
 @app.route('/books/title/<string:keyword>', methods=['GET'])
 def get_books_by_title(keyword):
     conn = sqlite3.connect('books.db')
@@ -110,7 +116,7 @@ def get_books_by_title(keyword):
 
     return jsonify(df.to_dict(orient="records"))
 
-# Endpoint 7: Get books by exact rating
+# Endpoint 7 books by exact rating
 @app.route('/books/rating/<int:rating>', methods=['GET'])
 def get_books_by_rating_exact(rating):
     conn = sqlite3.connect('books.db')
