@@ -18,5 +18,5 @@ The cleaned DataFrame is saved into a SQLite database, allowing for practical qu
 Step 4: API Creation
 A Flask-based API is built to serve the data stored in SQLite. The API exposes endpoints that allow structured access to the dataset for use in applications or front-end integrations.
 
-Step 5: Interactive Visualization
-Finally, Dash Plotly is used to build an interactive dashboard. This web app runs on a local server and allows users to explore the data visually through filters and charts, directly in the browser.
+Step 5: Interactive Visualization Dash Ploty 
+Finally, Dash Plotly is used to build an interactive dashboard. This web app runs on a local server and allows users to explore the data visually through filters and charts, e.g Rating, Price Range, Keywords even aviability directly in the browser throuhg a server.
