@@ -20,3 +20,5 @@ A Flask-based API is built to serve the data stored in SQLite. The API exposes e
 
 Step 5: Interactive Visualization Dash Ploty 
 Finally, Dash Plotly is used to build an interactive dashboard. This web app runs on a local server and allows users to explore the data visually through filters and charts, e.g Rating, Price Range, Keywords even aviability directly in the browser throuhg a server.
+
+PD: The CSV File is a contigency plan for something else run it with a conditional to avoid copies. 
